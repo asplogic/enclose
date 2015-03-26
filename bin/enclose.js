@@ -158,6 +158,13 @@ function children(o, cb) {
 
 function downloads() {
 
+  var arch = process.arch;
+
+  if (process.platform === "win32" &&
+      process.env["PROGRAMFILES(X86)"]) {
+    arch = "x64";
+  }
+
   var suffixes = {
     ia32: [
       get_suffix("x86")
@@ -166,7 +173,7 @@ function downloads() {
       get_suffix("x86"),
       get_suffix("x64")
     ]
-  }[process.arch];
+  }[arch];
 
   var items = [];
 
