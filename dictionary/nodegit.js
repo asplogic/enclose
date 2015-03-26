@@ -12,11 +12,7 @@ module.exports = {
     "lib/nodegit.js": [
 
       "require(\"../build/Debug/nodegit\");",
-      "null",
-
-      // TODO fix ASAP add code to error
-      "unhandledException.code != \"MODULE_NOT_FOUND\"",
-      "false"
+      "null"
 
     ]
 
