@@ -2,8 +2,7 @@ module.exports = {
 
   patches: {
 
-    // TODO temporary solution
-    // fix after require('...', 'option')
+    // TODO seems to work without this patch
 
     "lib/BufferUtil.js": [
       "*",

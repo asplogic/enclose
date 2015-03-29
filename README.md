@@ -139,4 +139,4 @@ against the copy.
 
 ### License
 
-Free for non-commercial use.
+Proprietary. Free for non-commercial use.

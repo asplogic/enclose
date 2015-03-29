@@ -6,13 +6,10 @@ module.exports = {
 
   patches: {
 
-    // TODO temporary solution
-    // fix after require("...", "option")
-
     "lib/nodegit.js": [
 
-      "require(\"../build/Debug/nodegit\");",
-      "null"
+      "require(\"../build/Debug/nodegit\")",
+      "require(\"../build/Debug/nodegit\", \"can-ignore\")"
 
     ]
 

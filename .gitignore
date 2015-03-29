@@ -30,4 +30,6 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
+.git.app
+.git.home
 zz.*
