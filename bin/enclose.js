@@ -111,17 +111,15 @@ function exec(args) {
 
   var c = spawn(full, args);
   var ee = new EventEmitter();
-  var counter = 0;
+  var counter = 0, code = 0;
 
   c.on("error", function(error) {
-    process.stdout.write(full);
-    process.stdout.write(error.toString());
     ee.emit("error", error);
   });
 
   function maybe_exit() {
     if (++counter < 3) return;
-    ee.emit("exit");
+    ee.emit("exit", code);
   }
 
   c.stderr.on("data", function(chunk) {
@@ -140,7 +138,8 @@ function exec(args) {
     maybe_exit();
   });
 
-  c.on("exit", function() {
+  c.on("exit", function(code_) {
+    code = code_;
     maybe_exit();
   });
 
@@ -161,7 +160,7 @@ function downloads() {
   var arch = process.arch;
 
   if (process.platform === "win32" &&
-      process.env["PROGRAMFILES(X86)"]) {
+      process.env.PROCESSOR_ARCHITEW6432) {
     arch = "x64";
   }
 
