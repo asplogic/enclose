@@ -140,4 +140,5 @@ against the copy.
 
 ### License
 
-Free for non-commercial use.
+Proprietary. Free for non-commercial use. To use in commercial
+projects please contact me igor@klopov.com
