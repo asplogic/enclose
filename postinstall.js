@@ -92,6 +92,7 @@ async.mapSeries(downloads, function(download, cb) {
       file.on("open", function() {
         http.get(download.location, function(res) {
           if (res.statusCode !== 200) {
+            // res.pipe(process.stdout);
             return failure(new Error(
               "Status code is " + res.statusCode
             ));
