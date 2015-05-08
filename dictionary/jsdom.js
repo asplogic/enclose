@@ -10,6 +10,11 @@ module.exports = {
     "lib/jsdom/living/node-iterator.js": [
       "\"use strict\";",
       "\"use strict\"; /* babel */"
+    ],
+
+    "lib/jsdom/living/parent-node.js": [
+      "\"use strict\";",
+      "\"use strict\"; /* babel */"
     ]
 
   }

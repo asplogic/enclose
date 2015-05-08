@@ -4,6 +4,8 @@ module.exports = {
     "lib/**/*.js"
   ],
 
+  // TODO add more dialects
+
   patches: {
 
     "lib/dialects/sqlite/connection-manager.js": [
