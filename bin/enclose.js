@@ -2,7 +2,6 @@
 
 /* eslint camelcase:0 */
 /* eslint curly:0 */
-/* eslint no-process-exit:0 */
 
 "use strict";
 
@@ -22,14 +21,14 @@ try {
     ), "utf8"
   );
 } catch(error) {
-  console.log(
+  throw new Error(
     "File '" + binaries_json_name +
     "' not found. Reinstall EncloseJS"
   );
-  process.exit();
 }
 
 function get_version_string(args) {
+  if (process.arch === "arm") return "v2.0.2"; // TODO swap version and suffix
   var pos =
     (args.indexOf("-v") + 1) ||
     (args.indexOf("--version") + 1);
@@ -46,15 +45,14 @@ function get_version(args) {
 }
 
 function get_arch(args) {
-  var help64 =
-    (args.length === 0) &&
-    (process.arch === "x64");
-  if (help64) return "x64";
-  var pos =
-    (args.indexOf("-x") + 1) ||
-    (args.indexOf("--x64") + 1);
-  if (pos) return "x64";
-  return "x86";
+  var x64 = (args.indexOf("-x") + 1) ||
+            (args.indexOf("--x64") + 1);
+  if (process.arch === "ia32" && x64) return "x64";
+  if (process.arch === "ia32") return "x86";
+  if (process.arch === "x64" && x64) return "x64";
+  if (process.arch === "x64") return "x86";
+  if (process.arch === "arm") return "arm";
+  throw new Error("Bug in 'get_arch'");
 }
 
 function get_suffix(arch) {
@@ -65,7 +63,8 @@ function get_suffix(arch) {
     },
     linux: {
       x86: "linux-x86",
-      x64: "linux-x64"
+      x64: "linux-x64",
+      arm: "linux-arm"
     },
     darwin: {
       x86: "darwin-x86",
@@ -79,11 +78,10 @@ function exec(args) {
   var version = get_version(args);
 
   if (!version) {
-    console.log(
+    throw new Error(
       "Bad version. See file '" +
       binaries_json_name + "'"
     );
-    process.exit();
   }
 
   var arch = get_arch(args);
@@ -92,8 +90,8 @@ function exec(args) {
 
   if (!team) {
     throw new Error(
-      "Bad architecture. " +
-      "See 'binaries.json'"
+      "Bad architecture '" + suffix + "'. " +
+      "See file 'binaries.json'"
     );
   }
 
@@ -171,6 +169,9 @@ function downloads() {
     x64: [
       get_suffix("x86"),
       get_suffix("x64")
+    ],
+    arm: [
+      get_suffix("arm")
     ]
   }[arch];
 
