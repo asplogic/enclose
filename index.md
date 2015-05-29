@@ -11,11 +11,11 @@ title: home
 * Make a demo/evaluation/trial version of your app without sources.
 * Make some kind of self-extracting archive or installer.
 * Make a closed source GUI application using [node-thrust](https://github.com/breach/node-thrust).
-* No need to install node and npm to deploy the compiled application.
+* No need to install node.js and npm to deploy the compiled application.
 * No need to download hundreds of files via `npm install` to deploy
 your application. Deploy it as a single independent file.
 * Put your assets inside the executable to make it even more portable.
-* Test your app against new node version without installing it.
+* Test your app against new node.js version without installing it.
 
 ### Install
 
@@ -23,26 +23,31 @@ your application. Deploy it as a single independent file.
 npm install -g enclose
 ```
 
-### The package
+### Usage
 
-As input you specify the entry file of your project `/path/project.js`.
-As output you get a standalone executable `/path/project`. When it is
-run, it does the same as `node /path/project.js`.
+```
+enclose --help
+```
 
-### Command line
+In short, as input you specify the entry file of your project
+`/path/project.js`. As output you get a standalone executable
+`/path/project`. When it is run, it does the same as
+`node /path/project.js`.
+
+### Command line of the executable
 
 Command line call `./project a b` is equivalent to `node ./project.js a b`.
 
 ### Dependencies
 
 The compiler parses your sources, detects calls to `require`, traverses
-the dependencies of your project and includes them into the package. You
-don't need to list them manually.
+the dependencies of your project and includes them into the executable.
+You don't need to list them manually.
 
 ### Assets
 
 If your project has assets (html templates, css, etc), for example to
-serve via http, you can bundle them into the package. Just list them
+serve via http, you can bundle them into the executable. Just list them
 as a [glob](https://github.com/sindresorhus/globby) in the configuration
 file.
 
@@ -62,7 +67,7 @@ can generate only "unoptimized" code. It runs about 2x slower, than
 optimized one.
 
 Also, node.js code is put inside the executable (along with your code)
-to support node API for your application at run-time. This increases
+to support node.js API for your application at run-time. This increases
 output file size.
 
 So, this is not that static compilation we used to know. But nevertheless
@@ -82,19 +87,19 @@ myfunc.toString()
 function myfunc() { [native code] }
 ```
 
-### Node and io.js
+### Node.js and io.js
 
-You can choose what runtime to wrap your project in - node 0.12.x or
+You can choose what runtime to wrap your project in - node.js 0.12.x or
 io.js. Both branches are supported.
 
-EncloseJS project does not aim to add new features to node, to avoid
-undesirable issues and to have predictable stability. Let's keep it
-vanilla.
+EncloseJS project does not aim to add new features to node.js - to
+avoid undesirable issues, to have predictable stability and to make
+node.js native modules compatible with enclosed executables.
 
 ### Fast
 
 It takes seconds to make an executable. You dont need to build
-node/io.js from sources in order to make the binary. EncloseJS is
+node.js/io.js from sources in order to make the binary. EncloseJS is
 shipped with precompiled parts, ready for bundling.
 
 ### Unlimited code
@@ -108,17 +113,7 @@ adjustments.
 ### Platforms
 
 EncloseJS can build executables for Linux, Windows and Mac OS X.
-
-- You can only build Windows executables (.exe) on Windows platform.
-Same for Unix and Mac. Cross compilation is not currently supported.
-- If you don't have the OS installed, you can use a VM such as VirtualBox
-or VMWare and compile your executable in that OS.
-
-### Node runtime
-
-Currently the size of built executables is additionally increased by
-5-7 MB, due to node runtime. Each executable has the node runtime
-packaged with it (captive runtime).
+Cross compilation is not currently supported.
 
 ### Native modules
 
@@ -130,7 +125,7 @@ Native modules (.node files) are supported, for all platforms
 - EncloseJS cannot package a native module inside the executable.
 - You have to package your native modules along with your final
 executable, and `require` that native module at runtime.
-- You have to compile native module against node 0.12.x or io.js 1.x.
+- You have to compile native module against node.js 0.12.x or current io.js.
 - If you are having trouble porting your native module, use [NAN](https://github.com/rvagg/nan).
 - On Windows, native module (built with node-gyp) requires executable
 name to be 'node.exe'. So in order to make it compatible with your
