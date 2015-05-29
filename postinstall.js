@@ -126,5 +126,8 @@ async.mapSeries(downloads, function(download, cb) {
   ], cb);
 
 }, function(error) {
-  if (error) throw error;
+  if (error) {
+    process.stdout.write("\n");
+    throw error;
+  }
 });

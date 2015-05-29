@@ -27,34 +27,6 @@ try {
   );
 }
 
-function get_version_string(args) {
-  if (process.arch === "arm") return "v2.0.2"; // TODO swap version and suffix
-  var pos =
-    (args.indexOf("-v") + 1) ||
-    (args.indexOf("--version") + 1);
-  if (!pos) return null;
-  return args[pos];
-}
-
-function get_version(args) {
-  var v = get_version_string(args);
-  if (!v) v = binaries_json.default;
-  var version = binaries_json[v] ||
-                binaries_json["v" + v];
-  return version;
-}
-
-function get_arch(args) {
-  var x64 = (args.indexOf("-x") + 1) ||
-            (args.indexOf("--x64") + 1);
-  if (process.arch === "ia32" && x64) return "x64";
-  if (process.arch === "ia32") return "x86";
-  if (process.arch === "x64" && x64) return "x64";
-  if (process.arch === "x64") return "x86";
-  if (process.arch === "arm") return "arm";
-  throw new Error("Bug in 'get_arch'");
-}
-
 function get_suffix(arch) {
   return {
     win32: {
@@ -73,31 +45,49 @@ function get_suffix(arch) {
   }[process.platform][arch];
 }
 
+function get_version_string(args) {
+  var pos =
+    (args.indexOf("-v") + 1) ||
+    (args.indexOf("--version") + 1);
+  if (!pos) return null;
+  return args[pos];
+}
+
+function get_version(args, suffix) {
+  var bjs = binaries_json[suffix];
+  var v = get_version_string(args);
+  if (!v) v = bjs.default;
+  var bjsv = bjs[v] || bjs["v" + v];
+  return bjsv;
+}
+
+function get_arch(args) {
+  var x64 = (args.indexOf("-x") + 1) ||
+            (args.indexOf("--x64") + 1);
+  if (process.arch === "ia32" && x64) return "x64";
+  if (process.arch === "ia32") return "x86";
+  if (process.arch === "x64" && x64) return "x64";
+  if (process.arch === "x64") return "x86";
+  if (process.arch === "arm") return "arm";
+  throw new Error("Bug in 'get_arch'");
+}
+
 function exec(args) {
-
-  var version = get_version(args);
-
-  if (!version) {
-    throw new Error(
-      "Bad version. See file '" +
-      binaries_json_name + "'"
-    );
-  }
 
   var arch = get_arch(args);
   var suffix = get_suffix(arch);
-  var team = version[suffix];
+  var version = get_version(args, suffix);
 
-  if (!team) {
+  if (!version) {
     throw new Error(
-      "Bad architecture '" + suffix + "'. " +
-      "See file 'binaries.json'"
+      "Bad version or architecture. " +
+      "See file '" + binaries_json_name + "'"
     );
   }
 
   var full = path.join(
     __dirname,
-    team.enclose.name
+    version.enclose.name
   );
 
   if ((args.indexOf("--color") < 0) &&
@@ -177,11 +167,11 @@ function downloads() {
 
   var items = [];
 
-  children(binaries_json, function(version) {
-    if (typeof version !== "object") return; // "default" string
-    children(version, function(suffix, key) {
-      if (suffixes.indexOf(key) < 0) return; // *****
-      children(suffix, function(binary) {
+  children(binaries_json, function(suffix, key) {
+    if (suffixes.indexOf(key) < 0) return; // *****
+    children(suffix, function(version) {
+      if (typeof version !== "object") return; // "default" string
+      children(version, function(binary) {
         items.push(binary);
       });
     });
