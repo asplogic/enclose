@@ -1,8 +1,10 @@
 # EncloseJS
 
+Compile your node.js project into an executable
+
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/igorklopov/enclose?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Compile your node.js project into an executable
+![Hello, world!](http://enclosejs.com/screenshot.png)
 
 ### Use cases
 
@@ -40,13 +42,13 @@ Command line call `./project a b` is equivalent to `node ./project.js a b`.
 ### Dependencies
 
 The compiler parses your sources, detects calls to `require`, traverses
-the dependencies of your project and includes them into the package. You
-don't need to list them manually.
+the dependencies of your project and includes them into the executable.
+You don't need to list them manually.
 
 ### Assets
 
 If your project has assets (html templates, css, etc), for example to
-serve via http, you can bundle them into the package. Just list them
+serve via http, you can bundle them into the executable. Just list them
 as a [glob](https://github.com/sindresorhus/globby) in the configuration
 file.
 
