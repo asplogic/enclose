@@ -22,13 +22,18 @@ your application. Deploy it as a single independent file.
 npm install -g enclose
 ```
 
-### The package
+### Usage
 
-As input you specify the entry file of your project `/path/project.js`.
-As output you get a standalone executable `/path/project`. When it is
-run, it does the same as `node /path/project.js`.
+```
+enclose --help
+```
 
-### Command line
+In short, as input you specify the entry file of your project
+`/path/project.js`. As output you get a standalone executable
+`/path/project`. When it is run, it does the same as
+`node /path/project.js`.
+
+### Command line of the executable
 
 Command line call `./project a b` is equivalent to `node ./project.js a b`.
 
@@ -86,9 +91,9 @@ function myfunc() { [native code] }
 You can choose what runtime to wrap your project in - node.js 0.12.x or
 io.js. Both branches are supported.
 
-EncloseJS project does not aim to add new features to node, to avoid
-undesirable issues and to have predictable stability. Let's keep it
-vanilla.
+EncloseJS project does not aim to add new features to node.js - to
+avoid undesirable issues, to have predictable stability and to make
+node.js native modules compatible with enclosed executables.
 
 ### Fast
 
@@ -107,17 +112,7 @@ adjustments.
 ### Platforms
 
 EncloseJS can build executables for Linux, Windows and Mac OS X.
-
-- You can only build Windows executables (.exe) on Windows platform.
-Same for Unix and Mac. Cross compilation is not currently supported.
-- If you don't have the OS installed, you can use a VM such as VirtualBox
-or VMWare and compile your executable in that OS.
-
-### Node.js runtime
-
-Currently the size of built executables is additionally increased by
-5-7 MB, due to node.js runtime. Each executable has the node.js runtime
-packaged with it (captive runtime).
+Cross compilation is not currently supported.
 
 ### Native modules
 
@@ -129,7 +124,7 @@ Native modules (.node files) are supported, for all platforms
 - EncloseJS cannot package a native module inside the executable.
 - You have to package your native modules along with your final
 executable, and `require` that native module at runtime.
-- You have to compile native module against node.js 0.12.x or io.js 1.x.
+- You have to compile native module against node.js 0.12.x or current io.js.
 - If you are having trouble porting your native module, use [NAN](https://github.com/rvagg/nan).
 - On Windows, native module (built with node-gyp) requires executable
 name to be 'node.exe'. So in order to make it compatible with your
