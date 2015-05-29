@@ -8,15 +8,15 @@ Compile your node.js project into an executable
 
 ### Use cases
 
-* Make a commercial version of your application without sources.
-* Make a demo/evaluation/trial version of your app without sources.
-* Make some kind of self-extracting archive or installer.
-* Make a closed source GUI application using [node-thrust](https://github.com/breach/node-thrust).
-* No need to install node.js and npm to deploy the compiled application.
+* Make a commercial version of your application without sources
+* Make a demo/evaluation/trial version of your app without sources
+* Make some kind of self-extracting archive or installer
+* Make a closed source GUI application using [node-thrust](https://github.com/breach/node-thrust)
+* No need to install node.js and npm to deploy the compiled application
 * No need to download hundreds of files via `npm install` to deploy
-your application. Deploy it as a single independent file.
-* Put your assets inside the executable to make it even more portable.
-* Test your app against new node.js version without installing it.
+your application. Deploy it as a single independent file
+* Put your assets inside the executable to make it even more portable
+* Test your app against new node.js version without installing it
 
 ### Install
 
@@ -93,6 +93,8 @@ function myfunc() { [native code] }
 You can choose what runtime to wrap your project in - node.js 0.12.x or
 io.js. Both branches are supported.
 
+### Vanilla node.js
+
 EncloseJS project does not aim to add new features to node.js - to
 avoid undesirable issues, to have predictable stability and to make
 node.js native modules compatible with enclosed executables.
@@ -103,13 +105,13 @@ It takes seconds to make an executable. You dont need to build
 node.js/io.js from sources in order to make the binary. EncloseJS is
 shipped with precompiled parts, ready for bundling.
 
-### Unlimited code
+### Compatibility with non-enclosed run
 
-You are not limited by the size of project. Big projects like `npm`,
-`browserify`, `eslint` can be easily compiled using EncloseJS (see
+Projects like `npm`, `browserify`, `eslint` can be compiled using EncloseJS (see
 [examples directory](https://github.com/igorklopov/enclose/tree/master/examples/22-npm)).
 Probably, your existing project can be compiled too, with minimal
-adjustments.
+adjustments. The adjustments preserve the ability to run you project
+via `node ./project.js`
 
 ### Platforms
 
@@ -118,13 +120,13 @@ Cross compilation is not currently supported.
 
 ### Native modules
 
-Native modules (.node files) are supported, for all platforms
+Native modules (.node files) are supported for all platforms
 ([more info](https://github.com/igorklopov/enclose/issues/12#issuecomment-82587865),
 [serialport example](https://github.com/igorklopov/enclose/tree/master/examples/24-serialport),
 [oracle example](https://github.com/igorklopov/enclose/tree/master/examples/25-oracle)).
 
 - EncloseJS cannot package a native module inside the executable.
-- You have to package your native modules along with your final
+- You have to deploy your native modules along with your final
 executable, and `require` that native module at runtime.
 - You have to compile native module against node.js 0.12.x or current io.js.
 - If you are having trouble porting your native module, use [NAN](https://github.com/rvagg/nan).
