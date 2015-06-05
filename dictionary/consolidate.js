@@ -45,18 +45,12 @@ module.exports = {
       "require('mustache', 'can-ignore')",
       "require('just')",
       "require('just', 'can-ignore')",
-      "require('just')",
-      "require('just', 'can-ignore')", // TODO WTF regex g
       "require('ect')",
       "require('ect', 'can-ignore')",
-      "require('ect')",
-      "require('ect', 'can-ignore')", // TODO WTF regex g
       "require('mote')",
       "require('mote', 'can-ignore')",
       "require('toffee')",
       "require('toffee', 'can-ignore')",
-      "require('toffee')",
-      "require('toffee', 'can-ignore')", // TODO WTF regex g
       "require('dot')",
       "require('dot', 'can-ignore')",
       "require('ractive')",
@@ -64,13 +58,7 @@ module.exports = {
       "require('htmling')",
       "require('htmling', 'can-ignore')",
       "require('react-tools')",
-      "require('react-tools', 'can-ignore')",
-      "require('react-tools')",
-      "require('react-tools', 'can-ignore')", // TODO WTF regex g
-      "if (!require.extensions['.jsx'])",
-      "if (false)", // TODO
-      "if (!require.extensions['.react'])",
-      "if (false)" // TODO
+      "require('react-tools', 'can-ignore')"
     ]
 
   }
