@@ -30,6 +30,11 @@ module.exports = {
       "sails.log.warn('*******************************************************************');\n" +
       "sails.emit('hook:grunt:done');\n" +
       "return cb_afterTaskStarted();("
+    ],
+
+    "lib/hooks/orm/backwards-compatibility/upgrade-datastore.js": [
+      "if (!fs.existsSync(modulePath)) {",
+      "try { require(modulePath); } catch (e) {"
     ]
 
   }

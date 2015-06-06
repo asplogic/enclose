@@ -92,14 +92,17 @@ if (require.main === module) {
         "process.chdir(__dirname)",
         "", // no need to chdir
 
-        "require('sails/node_modules/rc');",
+        "require('sails/node_modules/rc')",
         "null",
 
         "sails.lift(rc('sails'));",
         "var c = rc('sails');" +
         // use it here to point to packaged files
         "c.appPath = __dirname;" +
-        "sails.lift(c);"
+        "sails.lift(c);",
+
+        ">", // TODO { prepend: true }, { append: true }, { regexp: "..." } as first (prepend skips shebang and "use strict", append adds \n before or after)
+        "require('sails-disk')"
 
       ]
 
