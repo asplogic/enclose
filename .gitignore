@@ -33,3 +33,8 @@ node_modules
 .git.app
 .git.home
 zz.*
+
+/bin/enclose*.exe
+/bin/enclose-*-linux-*
+/bin/enclose-*-darwin-*
+/bin/mksnapshot*
