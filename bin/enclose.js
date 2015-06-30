@@ -49,15 +49,15 @@ function get_version_string(args) {
   var pos =
     (args.indexOf("-v") + 1) ||
     (args.indexOf("--version") + 1);
-  if (!pos) return null;
+  if (!pos) return "default";
   return args[pos];
 }
 
-function get_version(args, suffix) {
+function get_version(version_string, suffix) {
   var bjs = binaries_json[suffix];
-  var v = get_version_string(args);
-  if (!v) v = bjs.default;
+  var v = version_string;
   var bjsv = bjs[v] || bjs["v" + v];
+  if (typeof bjsv === "string") return get_version(bjsv, suffix);
   return bjsv;
 }
 
@@ -69,14 +69,15 @@ function get_arch(args) {
   if (process.arch === "x64" && x64) return "x64";
   if (process.arch === "x64") return "x86";
   if (process.arch === "arm") return "arm";
-  throw new Error("Bug in 'get_arch'");
+  throw new Error("Bad 'get_arch'");
 }
 
 function exec(args) {
 
   var arch = get_arch(args);
   var suffix = get_suffix(arch);
-  var version = get_version(args, suffix);
+  var version_string = get_version_string(args);
+  var version = get_version(version_string, suffix);
 
   if (!version) {
     throw new Error(

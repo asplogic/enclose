@@ -7,6 +7,8 @@ var enclose = require("../../").exec;
 var flags = [];
 var x64 = process.arch === "x64";
 if (x64) flags.push("--x64");
+var iojs = (process.versions.modules | 0) >= 44;
+if (iojs) flags.push("--version", "iojs");
 
 try {
   require.resolve("serialport");
