@@ -29,7 +29,7 @@ async.mapSeries(downloads, function(download, cb) {
     function(next) {
 
       var file = fs.createWriteStream(name);
-      var hash = crypto.createHash("sha1");
+      var hash = crypto.createHash("sha256");
       hash.setEncoding("hex");
       var read = 0;
 
@@ -79,7 +79,7 @@ async.mapSeries(downloads, function(download, cb) {
 
       function success() {
         end(function() {
-          if (hash.read() !== download.shasum) {
+          if (hash.read() !== download.sha256) {
             return remove(new Error(
               "Shasum wrong, " + download.name
             ));

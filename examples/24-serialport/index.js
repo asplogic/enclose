@@ -2,9 +2,15 @@
 
 "use strict";
 
+// INFORMATION!
+// you can place "serialport.node" near executable file
+// and erase "node_modules" directory - and it will work
 var SerialPort = require("serialport").SerialPort;
 
-var serialPort = new SerialPort("/dev/ttyS0", {
+var windows = process.platform === "win32";
+var port = windows ? "COM1" : "/dev/ttyS0";
+
+var serialPort = new SerialPort(port, {
   baudrate: 57600
 });
 
